@@ -1,28 +1,53 @@
 import random
 
 class Perro:
-    def __init__(self, ):
-        color1 = ("marron", "negro", "blanco", "amarillo")
-        color2 = ("marron", "negro", "blanco", "amarillo")
-        color_base = random.choice(color1)
-        color_seg  = random.choice(color2)
+    def __init__(self ):
+        self.estado = True
+        self.color1 = ("marron", "negro", "blanco", "amarillo")
+        self.color2 = ("marron", "negro", "blanco", "amarillo")
+        self.color_base = random.choice(self.color1)
+        self.color_seg  = random.choice(self.color2)
         
-        tamano_op = ("pequeño", "mediano", "grande")
-        tamano    = random.choice(tamano_op)
+        self.tamano_op = ("pequeño", "mediano", "grande")
+        self.tamano    = random.choice(self.tamano_op)
 
-        pelo_op = ("corto", "largo")
-        pelo    = random.choice(pelo_op)
+        self.pelo_op = ("corto", "largo")
+        self.pelo    = random.choice(self.pelo_op)
 
-        if color_base != color_seg:
-            manchas = color_seg
-            print("Color base",color_base, "manchas", color_seg, "tamaño", tamano)
+        if self.color_base != self.color_seg:
+            manchas = self.color_seg
+            print("Color base",self.color_base, "manchas", self.color_seg, "tamaño", self.tamano)
         else:
-            print("Color base",color_base, "SIN manchas", "tamaño", tamano)
+            print("Color base",self.color_base, "SIN manchas", "tamaño", self.tamano)
 
-    def ladrar():
-        print("GUAU")
+    def ladrar(self):
+        if self.estado == False:
+            respuesta = input("¿Despertar?: S/N ").upper()
+            if respuesta == "S":
+                print("respuesta ", respuesta)
+                self.estado == True
+            else:
+                print("sigue dormido")
+        else:
+            print("GUAU")
 
-        
-#perro = Perro(input("Introduce: "))
+    def dormir(self):
+        if self.estado == True:
+            self.estado = False
+            print("domido")
+        else:
+            print("Ya esta dormido")
+
+    def comer(self):
+        pass
+
+
+
 perro1 = Perro()
-perro2 = Perro()
+print("estado: ",perro1.estado)
+perro1.dormir()
+perro1.ladrar()
+perro1.dormir()
+print("estado: ",perro1.estado)
+
+
