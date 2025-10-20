@@ -20,34 +20,49 @@ class Perro:
         else:
             print("Color base",self.color_base, "SIN manchas", "tamaño", self.tamano)
 
-    def ladrar(self):
-        if self.estado == False:
-            respuesta = input("¿Despertar?: S/N ").upper()
-            if respuesta == "S":
-                print("respuesta ", respuesta)
-                self.estado == True
-            else:
-                print("sigue dormido")
+    def verificar_estado(self):
+        """Devuelve True si el perro está despierto y listo para actuar."""
+        if self.estado == True:
+            return True # Ya está despierto, puede continuar
+        
+        # Si self.estado es False (dormido):
+        respuesta = input("El perro está dormido. ¿Despertar? (S/N): ").upper()
+        
+        if respuesta == "S":
+            # CORRECCIÓN: Asignación (=)
+            self.estado = True 
+            print("Perro despierto y listo.")
+            return True
         else:
-            print("GUAU")
+            print("Dormido")
+
+    def ladrar(self):
+        self.verificar_estado()
+        print("GUAU")
 
     def dormir(self):
-        if self.estado == True:
+        if self.verificar_estado() == True:
             self.estado = False
-            print("domido")
-        else:
-            print("Ya esta dormido")
 
     def comer(self):
-        pass
+        self.verificar_estado()
+
+    def ofrecer_comida(self):
+        if self.verificar_estado():
+            with open('alimento.txt', 'w') as archivo:
+                archivo.write("Y esta es la segunda línea.")
+    
+    
 
 
 
 perro1 = Perro()
 print("estado: ",perro1.estado)
-perro1.dormir()
+#perro1.dormir()
 perro1.ladrar()
 perro1.dormir()
+perro1.ofrecer_comida()
+perro1.ladrar()
 print("estado: ",perro1.estado)
 
 
