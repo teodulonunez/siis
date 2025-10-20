@@ -57,19 +57,19 @@ class Perro:
         if self.verificar_estado():
             with open('alimento.txt', 'w') as archivo:
                 archivo.write("Y esta es la segunda línea.")
+
+    def correr(self):
+        if self.verificar_estado():
+            print("perro corriendo")
     
     
-
-
-
-perro1 = Perro()
-print("estado: ",perro1.estado)
-#perro1.dormir()
-perro1.ladrar()
-perro1.dormir()
-perro1.ofrecer_comida()
-perro1.comer()
-perro1.ladrar()
-print("estado: ",perro1.estado)
+# perro1 = Perro()
+# print("estado: ",perro1.estado)
+# perro1.ladrar()
+# perro1.dormir()
+# perro1.ofrecer_comida()
+# perro1.comer()
+# perro1.ladrar()
+# print("estado: ",perro1.estado)
 
 
