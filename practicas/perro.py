@@ -1,4 +1,5 @@
 import random
+from pathlib import Path
 
 class Perro:
     def __init__(self ):
@@ -37,16 +38,21 @@ class Perro:
             print("Dormido")
 
     def ladrar(self):
-        self.verificar_estado()
-        print("GUAU")
+        if self.verificar_estado():
+            print("GUAU")
 
     def dormir(self):
-        if self.verificar_estado() == True:
+        if self.verificar_estado():
             self.estado = False
+            print("perro dormido")
 
     def comer(self):
-        self.verificar_estado()
-
+        if self.verificar_estado():
+            ruta_comida = Path('alimento.txt')
+            if ruta_comida.exists() and ruta_comida.is_file():
+                print("comiendo")
+            else:print("sin comida")
+        
     def ofrecer_comida(self):
         if self.verificar_estado():
             with open('alimento.txt', 'w') as archivo:
@@ -62,6 +68,7 @@ print("estado: ",perro1.estado)
 perro1.ladrar()
 perro1.dormir()
 perro1.ofrecer_comida()
+perro1.comer()
 perro1.ladrar()
 print("estado: ",perro1.estado)
 
