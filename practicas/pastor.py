@@ -2,7 +2,7 @@ from perro import Perro
 import random
 from pathlib import Path
 
-class Pastor(Perro):
+class Pastor(Perro, ):
     def __init__(self):
         self.estado = True
         self.color1 = ("blanco", "negro", "griz")
@@ -43,6 +43,6 @@ class Pastor(Perro):
         else:
             print("error en el archivo")
 
-pastor = Pastor()
-pastor.crear_rebano()
-pastor.pastorear()
+# pastor = Pastor()
+# pastor.crear_rebano()
+# pastor.pastorear()
