@@ -1,6 +1,6 @@
 from perro import Perro
 import random
-
+#
 class Guardian (Perro):
     def __init__(self):
         self.estado = True
@@ -21,9 +21,9 @@ class Guardian (Perro):
             print("patrullando")
 
 
-guardian = Guardian()
-guardian.ladrar()
-print("estado",guardian.estado)
-guardian.vigilar()
-guardian.dormir()
-guardian.patrullar()
+#guardian = Guardian()
+#guardian.ladrar()
+#print("estado",guardian.estado)
+#guardian.vigilar()
+#guardian.dormir()
+#guardian.patrullar()

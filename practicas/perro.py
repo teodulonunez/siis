@@ -22,7 +22,7 @@ class Perro:
             print("Color base",self.color_base, "SIN manchas", "tamaño", self.tamano)
 
     def verificar_estado(self):
-        """Devuelve True si el perro está despierto y listo para actuar."""
+        """Devuelve True si el perro está despierto"""
         if self.estado == True:
             return True # Ya está despierto, puede continuar
         
@@ -61,6 +61,7 @@ class Perro:
     def correr(self):
         if self.verificar_estado():
             print("perro corriendo")
+            return True
     
     
 # perro1 = Perro()
