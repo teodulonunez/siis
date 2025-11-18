@@ -1,9 +1,12 @@
-from perro import Perro
+from perro import Perro, requiere_despierto
 import random
 from pathlib import Path
 
-class Pastor(Perro, ):
+class Pastor(Perro):
     def __init__(self):
+        # Llama al constructor del padre para asegurar la inicialización de self.estado.
+        super().__init__()
+
         self.estado = True
         self.color1 = ("blanco", "negro", "griz")
         self.color_base = random.choice(self.color1)
@@ -15,28 +18,28 @@ class Pastor(Perro, ):
     def crear_rebano(self):
         with open("rebano.txt", "a") as rebano:
             entrada = input("escribir:")
+            #escribe 1 para pastorear
             rebano.write("\n"+entrada)
             
-
+    @requiere_despierto
     def buscar_rebano(self):
-        if self.verificar_estado():
-            ruta_rebano = Path("rebano.txt")
-            try:
-                with open ("rebano.txt", "r") as existe_rebano:
-                    contenido = existe_rebano.readlines()
-                    ultima_linea = contenido[-1].strip()
-                    
-                    if ultima_linea == "1":
-                        print("rebaño encontrado:", ultima_linea)
-                        return True
-                    else:
-                        print("rebaño encontrado pero:", ultima_linea)
-                        return False
-                    
-            except FileNotFoundError:
-                print("no existe archivo")
+        ruta_rebano = Path("rebano.txt")
+        try:
+            with open ("rebano.txt", "r") as existe_rebano:
+                contenido = existe_rebano.readlines()
+                ultima_linea = contenido[-1].strip()
+                
+                if ultima_linea == "1":
+                    print("rebaño encontrado:", ultima_linea)
+                    return True
+                else:
+                    print("rebaño encontrado pero:", ultima_linea)
+                    return False
+                
+        except FileNotFoundError:
+            print("no existe archivo")
 
-
+    @requiere_despierto
     def pastorear(self):
         if self.correr() and self.buscar_rebano():
             print("pastoreando")

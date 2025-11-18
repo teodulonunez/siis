@@ -1,4 +1,4 @@
-from perro import Perro
+from perro import Perro, requiere_despierto
 import random
 #
 class Guardian (Perro):
@@ -11,19 +11,19 @@ class Guardian (Perro):
         
         print("guardian de color",self.color_base,"tamaño",self.tamano, "pelo:",self.pelo_op)
 
+
+    @requiere_despierto
     def vigilar(self):
-        if self.verificar_estado():
-            print("vigilando")
-        return True
-    
+        print("vigilando")
+
     def patrullar(self):
         if self.vigilar() and self.correr():
             print("patrullando")
 
 
-#guardian = Guardian()
-#guardian.ladrar()
-#print("estado",guardian.estado)
-#guardian.vigilar()
-#guardian.dormir()
-#guardian.patrullar()
+# guardian = Guardian()
+# guardian.ladrar()
+# print("estado",guardian.estado)
+# guardian.vigilar()
+# guardian.dormir()
+# guardian.patrullar()
