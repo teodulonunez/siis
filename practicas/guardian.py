@@ -21,6 +21,8 @@ class Guardian (Perro):
             print("patrullando")
 
 
+
+
 # guardian = Guardian()
 # guardian.ladrar()
 # print("estado",guardian.estado)
