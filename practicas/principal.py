@@ -19,10 +19,29 @@ class Principal():
                 print(f"{indice}: {nombre_clase}")
                 indice +=1
 
+    def validar(self,numero_perro):
+        pass
+
+
+    def crear_perro(self):
+        while True:
+            try:
+                perro1 = int(input("Elije primer perro: "))
+                if 1 <= perro1 <= 5:
+                    return perro1
+                else:
+                    print("opcion de 1 a 5")
+            except ValueError: 
+                print("Debe ser un número de 1 a 5 " )
+
+
+
+        # validar(self, perro1)
+        # perro2 = input("Elije segundo perro:")
+
 
 
 p = Principal()
+#p.mostrar_lista()
 p.mostrar_lista()
-
-
-class mixto(p1, p2):
+p.crear_perro()
