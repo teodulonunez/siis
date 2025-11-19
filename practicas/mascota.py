@@ -1,10 +1,10 @@
-from perro import Perro
+from perro import Perro, requiere_despierto
 import random
 
 def validar(func):
     def wrapper(self, *args, **kwargs):
         res = int(input("edad:"))
-        if res >= 18:
+        if res >= 5:
             print("ok")
             func(self)
         else:
@@ -20,24 +20,14 @@ class Mascota(Perro):
         self.pelo_op = "largo"   
         print("pastor color",self.color_base,"tamaño",self.tamano, "pelo:",self.pelo_op)
 
-    
+    @requiere_despierto
     @validar
     def jugar(self):
         print("fun jugar")
 
-    #jugar()
+# m = Mascota()
+# m.jugar()
 
-# 
 
-class Mascota_hija (Mascota):
-    def __init__(self):
-        super(). __init__()
-
-    @validar
-    def ladrar(self):
-        print("hola")
-
-m = Mascota_hija()
-m.ladrar()
 
         

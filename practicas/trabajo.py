@@ -61,6 +61,6 @@ class Trabajo(Guardian, Pastor):
         print("\n¡Proceso Completado!")
 
         
-trabajo = Trabajo()
-trabajo.trabajar()
+# trabajo = Trabajo()
+# trabajo.trabajar()
 
