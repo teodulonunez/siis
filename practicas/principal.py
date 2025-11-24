@@ -1,9 +1,10 @@
 from pathlib import Path
-import os, sys, importlib
+import os, sys, importlib, random
 
 class Principal():
     def __init__(self):
         pass
+        
 
 
     def mostrar_lista(self):
@@ -68,8 +69,19 @@ class Principal():
         # Clase híbrida por composición
         class Cruce:
             def __init__(self):
+                #se instancia los objetos de las clases padres
+                nombre = input("nombre del perro:")
                 self.obj1 = clase1()
                 self.obj2 = clase2()
+
+                porcentaje_obj1 = random.randrange(1,100)
+                porcentaje_obj2 = 100 - porcentaje_obj1
+                print(f"El perro es {porcentaje_obj1}% de guardian y {porcentaje_obj2}% de pastor")
+                color_pelo = (self.obj1.color_base, self.obj2.color_base)
+                porcentaje_padres = [porcentaje_obj1, porcentaje_obj2]
+                self.color_base = random.choices(color_pelo, weights=porcentaje_padres)[0]
+                print(f"CLase Cruce color de pelo de {nombre}: {self.color_base}")
+
 
             def __getattr__(self, nombre):
                 """Delegar automáticamente métodos a los objetos internos"""

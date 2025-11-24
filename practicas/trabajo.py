@@ -16,7 +16,6 @@ class Trabajo(Guardian, Pastor):
         porcentaje_padres = [porcentaje_guardian, porcentaje_pastor]
 
         self.estado = True
-        # self.color1 = ("blanco", "amarillo")
         self.color_base = random.choices(color_pelo, weights=porcentaje_padres)[0]
         self.tamano = "mediano"
         self.pelo_op = "largo"

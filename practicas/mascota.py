@@ -19,7 +19,7 @@ class Mascota(Perro):
         self.color_base = random.choice(self.color1)
         self.tamano = "mediano"
         self.pelo_op = "largo"   
-        print("pastor color",self.color_base,"tamaño",self.tamano, "pelo:",self.pelo_op)
+        print("mascota color",self.color_base,"tamaño",self.tamano, "pelo:",self.pelo_op)
 
     @requiere_despierto
     @validar
