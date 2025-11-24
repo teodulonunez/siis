@@ -5,9 +5,19 @@ import time, datetime, random
 
 class Trabajo(Guardian, Pastor):
     def __init__(self):
+        super().__init__()
+        #instanciar los padres para obtener atributos, estos se definene en el contructor solo se puede acceder a ellos al instanciar
+        guardian = Guardian()
+        pastor = Pastor()
+        porcentaje_guardian = random.randrange(1,100)
+        porcentaje_pastor = 100 - porcentaje_guardian
+        print(f"El perro es {porcentaje_guardian}% de guardian y {porcentaje_pastor}% de pastor")
+        color_pelo = (guardian.color_base, pastor.color_base)
+        porcentaje_padres = [porcentaje_guardian, porcentaje_pastor]
+
         self.estado = True
-        self.color1 = ("blanco", "amarillo")
-        self.color_base = random.choice(self.color1)
+        # self.color1 = ("blanco", "amarillo")
+        self.color_base = random.choices(color_pelo, weights=porcentaje_padres)[0]
         self.tamano = "mediano"
         self.pelo_op = "largo"
         
@@ -61,6 +71,6 @@ class Trabajo(Guardian, Pastor):
         print("\n¡Proceso Completado!")
 
         
-# trabajo = Trabajo()
-# trabajo.trabajar()
+trabajo = Trabajo()
+trabajo.trabajar()
 

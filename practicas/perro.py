@@ -44,9 +44,9 @@ class Perro:
         if self.color_base != self.color_seg:
             # En el código original se asignaba a 'manchas', pero no se usaba después
             # manchas = self.color_seg 
-            print("Color base", self.color_base, "manchas", self.color_seg, "tamaño", self.tamano)
+            print("Perro Color base", self.color_base, "manchas", self.color_seg, "tamaño", self.tamano)
         else:
-            print("Color base", self.color_base, "SIN manchas", "tamaño", self.tamano)
+            print("Perro Color base", self.color_base, "SIN manchas", "tamaño", self.tamano)
 
 
     @requiere_despierto

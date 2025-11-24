@@ -3,8 +3,9 @@ import random
 #
 class Guardian (Perro):
     def __init__(self):
+        super().__init__()
         self.estado = True
-        self.color1 = ("marron", "negro", "griz")
+        self.color1 = ("marron", "amarillo", "rojo")
         self.color_base = random.choice(self.color1)
         self.tamano = "grande"
         self.pelo_op = "largo"

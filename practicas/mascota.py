@@ -13,6 +13,7 @@ def validar(func):
 
 class Mascota(Perro):
     def __init__(self):
+        super().__init__()
         self.estado = True
         self.color1 = ("negro", "amarillo", "rojo", "marron")
         self.color_base = random.choice(self.color1)
