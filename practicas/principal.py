@@ -1,11 +1,11 @@
 from pathlib import Path
 import os, sys, importlib, random
+from practicas.conexion import Conexion
 
 class Principal():
     def __init__(self):
         pass
         
-
 
     def mostrar_lista(self):
         """Muestra los tipos de perros disponibles"""
@@ -71,6 +71,7 @@ class Principal():
             def __init__(self):
                 #se instancia los objetos de las clases padres
                 nombre = input("nombre del perro:")
+                dueno = input("tu nombre:")
                 self.obj1 = clase1()
                 self.obj2 = clase2()
 
@@ -93,7 +94,13 @@ class Principal():
                     raise AttributeError(f"{nombre} no existe en el híbrido")
 
         return Cruce()
-						
+		
+                # Insertar en BD antes de mostrar menú
+        with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
+            conn.insertar_perro(perro.raza, perro.nombre, perro.dueño)
+
+        return perro
+
 
     def mostrar_menu_acciones(self, perro):
         """Muestra un menú con todos los métodos disponibles en el perro híbrido"""
