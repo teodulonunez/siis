@@ -6,7 +6,7 @@ class Pastor(Perro):
     def __init__(self):
         # Llama al constructor del padre para asegurar la inicialización de self.estado.
         super().__init__()
-
+        self.raza = "pastor"
         self.estado = True
         self.color1 = ("blanco", "negro", "griz")
         self.color_base = random.choice(self.color1)

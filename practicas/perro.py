@@ -1,7 +1,7 @@
 import random
 from pathlib import Path
 
-# --- FUNCIÓN GLOBAL DE VERIFICACIÓN DE ESTADO ---
+# --- ESta FUNCIÓN debe ser GLOBAL VERIFICACIÓN DE ESTADO ---
 def verificar_estado(instancia_perro):
     """Devuelve True si el perro está despierto o se despierta."""
     if instancia_perro.estado is True:
@@ -42,8 +42,6 @@ class Perro:
         self.pelo = random.choice(self.pelo_op)
 
         if self.color_base != self.color_seg:
-            # En el código original se asignaba a 'manchas', pero no se usaba después
-            # manchas = self.color_seg 
             print("Perro Color base", self.color_base, "manchas", self.color_seg, "tamaño", self.tamano)
         else:
             print("Perro Color base", self.color_base, "SIN manchas", "tamaño", self.tamano)
@@ -82,27 +80,3 @@ class Perro:
     def correr(self):					   
         print("perro corriendo")
         return True
-    
-    
-# # --- EJEMPLO DE USO ---
-# perro1 = Perro()
-# print("estado inicial:", perro1.estado)
-
-# print("\n--- Ladrando (Despierto) ---")
-# perro1.ladrar()
-
-# print("\n--- Durmiendo ---")
-# perro1.dormir()
-
-# print("\n--- Comiendo (Dormido, requiere despertar) ---")
-# # Al llamar a comer, se ejecuta el decorador, que llama a verificar_estado.
-# # verificar_estado pedirá input al usuario.
-# perro1.comer() 
-
-# print("\n--- Corriendo (Recién despierto) ---")
-# perro1.correr()
-
-# print("\n--- Ofrecer comida (Recién despierto) ---")
-# perro1.ofrecer_comida()
-
-# print("estado final:", perro1.estado)

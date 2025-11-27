@@ -6,6 +6,7 @@ import time, datetime, random
 class Trabajo(Guardian, Pastor):
     def __init__(self):
         super().__init__()
+        self.raza = "trabajo"
         #instanciar los padres para obtener atributos, estos se definene en el contructor solo se puede acceder a ellos al instanciar
         guardian = Guardian()
         pastor = Pastor()
@@ -70,6 +71,6 @@ class Trabajo(Guardian, Pastor):
         print("\n¡Proceso Completado!")
 
         
-trabajo = Trabajo()
-trabajo.trabajar()
+#trabajo = Trabajo()
+#trabajo.trabajar()
 

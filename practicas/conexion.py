@@ -2,6 +2,7 @@ import psycopg2
 
 class Conexion:
     def __init__(self, host, database, user, password):
+        print("__INIT__")
         self.host = host
         self.database = database
         self.user = user
@@ -27,6 +28,22 @@ class Conexion:
         self.conexion.close()
         print("Conexión cerrada")
 
+
+    def listar(self):
+        try:
+            query = "SELECT * FROM perros"
+            self.cursor.execute(query)
+            resp = self.cursor.fetchall()
+            print("***Lista de perros disponibles***")
+            for fila in resp:
+                print(f"Id: {fila[0]}, nombre: {fila[1]}, raza: {fila[2]}, dueno {fila[3]}")
+            
+            return resp #el return es opcional
+        except Exception as e:
+            print("ERROR listando")
+            return []
+
+
     def insertar(self, nombre, raza, dueno):
         try:
             query ="INSERT INTO perros (nombre, raza, dueno) VALUES (%s, %s, %s)"
@@ -37,9 +54,21 @@ class Conexion:
             print("Error al insertar", e)
             self.conexion.rollback()
 
+        
+    def eliminar(self, id):
+        try:
+            query ="DELETE FROM perros WHERE id =  %s"
+            self.cursor.execute(query, (id,))
+            self.conexion.commit()
+            print("Perro Eliminado")
+        except Exception as e:
+            print("Error al eliminar", e)
+            self.conexion.rollback()
 
-# Uso con contexto
-with Conexion("wazuh-server.cm.com.ve","siis","siis","siis") as conn:
-    conn.cursor.execute("SELECT version();")
-    for fila in conn.cursor.fetchall():
-        print(fila)
+
+
+### ESTO CREAS UNA INSTANCIA Se llama de esta forma por que se necesita ajecutar el bloque __enter__ y __exit__
+# with Conexion ("wazuh-server.cm.com.ve", "siis", "siis", "siis")as conn:
+#     conn.listar()
+#     conn.eliminar(5)
+#     conn.listar()

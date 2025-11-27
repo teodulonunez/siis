@@ -74,15 +74,17 @@ class Principal():
                 self.dueno = input("tu nombre:")
                 self.obj1 = clase1()
                 self.obj2 = clase2()
+                self.raza = self.obj1.raza+"-"+self.obj2.raza
 
                 porcentaje_obj1 = random.randrange(1,100)
                 porcentaje_obj2 = 100 - porcentaje_obj1
-                print(f"El perro es {porcentaje_obj1}% de {lista[perro1 -1]} y {perro2}% de {lista[perro2 -1]}")
-                self.raza = lista[perro1 -1]+lista[perro2 -1]
+
+                print(f"El perro es {porcentaje_obj1}% de {self.obj1.raza} y {perro2}% de {self.obj2.raza}")
+
                 color_pelo = (self.obj1.color_base, self.obj2.color_base)
                 porcentaje_padres = [porcentaje_obj1, porcentaje_obj2]
                 self.color_base = random.choices(color_pelo, weights=porcentaje_padres)[0]
-                print(f"CLase Cruce color de pelo de {self.nombre}: {self.color_base}")
+                print(f"CLase Cruce color de pelo del perro:  {self.nombre}: {self.color_base}")
 
 
             def __getattr__(self, nombre):
@@ -100,11 +102,7 @@ class Principal():
         with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
             conn.insertar(perro.raza, perro.nombre, perro.dueno)
         return perro
-
-        return Cruce()
 		 
-
-
 
     def mostrar_menu_acciones(self, perro):
         """Muestra un menú con todos los métodos disponibles en el perro híbrido"""
@@ -140,14 +138,6 @@ class Principal():
 
 
     
-    
-
 p = Principal()
 perro = p.crear_perro()
 p.mostrar_menu_acciones(perro)
-
-
-
-# perro.vigilar()     # método de Guardian
-# perro.pastorear()   # método de Pastor
-# perro.ladrar()      # método heredado de Perro
