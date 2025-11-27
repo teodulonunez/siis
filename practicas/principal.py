@@ -1,6 +1,6 @@
 from pathlib import Path
 import os, sys, importlib, random
-from practicas.conexion import Conexion
+from conexion import Conexion
 
 class Principal():
     def __init__(self):
@@ -17,7 +17,7 @@ class Principal():
         for archivo_path in directorio_proyecto.glob('*.py'):
             nombre_archivo = archivo_path.name
             
-            if nombre_archivo not in ('principal.py', 'perro.py') and archivo_path.is_file():
+            if nombre_archivo not in ('principal.py', 'perro.py', 'conexion.py') and archivo_path.is_file():
                 nombre_clase = nombre_archivo.replace('.py', '').capitalize()
                 print(f"{indice}: {nombre_clase}")
                 lista.append(nombre_clase)
@@ -52,7 +52,7 @@ class Principal():
             except ValueError: 
                 print(f"Debe ser un número de 1 a {tamano_lista}" )
 
-        print(f"Fuera del ciclo perro1: {lista[perro1 -1]} perro2: {lista[perro2 -1]}")
+        print(f"Fuera del ciclo perro1: {lista[perro1 -1]} | perro2: {lista[perro2 -1]}")
         return lista, perro1, perro2
  															 
 
@@ -70,18 +70,19 @@ class Principal():
         class Cruce:
             def __init__(self):
                 #se instancia los objetos de las clases padres
-                nombre = input("nombre del perro:")
-                dueno = input("tu nombre:")
+                self.nombre = input("nombre del perro:")
+                self.dueno = input("tu nombre:")
                 self.obj1 = clase1()
                 self.obj2 = clase2()
 
                 porcentaje_obj1 = random.randrange(1,100)
                 porcentaje_obj2 = 100 - porcentaje_obj1
-                print(f"El perro es {porcentaje_obj1}% de guardian y {porcentaje_obj2}% de pastor")
+                print(f"El perro es {porcentaje_obj1}% de {lista[perro1 -1]} y {perro2}% de {lista[perro2 -1]}")
+                self.raza = lista[perro1 -1]+lista[perro2 -1]
                 color_pelo = (self.obj1.color_base, self.obj2.color_base)
                 porcentaje_padres = [porcentaje_obj1, porcentaje_obj2]
                 self.color_base = random.choices(color_pelo, weights=porcentaje_padres)[0]
-                print(f"CLase Cruce color de pelo de {nombre}: {self.color_base}")
+                print(f"CLase Cruce color de pelo de {self.nombre}: {self.color_base}")
 
 
             def __getattr__(self, nombre):
@@ -92,14 +93,17 @@ class Principal():
                     return getattr(self.obj2, nombre)
                 else:
                     raise AttributeError(f"{nombre} no existe en el híbrido")
+                                # Insertar en BD antes de mostrar menú
+        
+        perro = Cruce()
+
+        with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
+            conn.insertar(perro.raza, perro.nombre, perro.dueno)
+        return perro
 
         return Cruce()
-		
-                # Insertar en BD antes de mostrar menú
-        with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
-            conn.insertar_perro(perro.raza, perro.nombre, perro.dueño)
+		 
 
-        return perro
 
 
     def mostrar_menu_acciones(self, perro):

@@ -18,7 +18,7 @@ class Conexion:
                 )
             self.cursor = self.conexion.cursor()
             print("Conexión establecida")
-            return self.cursor
+            return self
         except Exception as e:
             print("ERROR al conectar:", e)
 
@@ -27,11 +27,11 @@ class Conexion:
         self.conexion.close()
         print("Conexión cerrada")
 
-    def insertar (self, nombre, raza, dueno):
+    def insertar(self, nombre, raza, dueno):
         try:
             query ="INSERT INTO perros (nombre, raza, dueno) VALUES (%s, %s, %s)"
             self.cursor.execute(query,(nombre, raza, dueno))
-            self.conexion.commit
+            self.conexion.commit()
             print("Perro insertado")
         except Exception as e:
             print("Error al insertar", e)
@@ -39,7 +39,7 @@ class Conexion:
 
 
 # Uso con contexto
-with Conexion("wazuh-server.cm.com.ve","siis","siis","siis") as cursor:
-    cursor.execute("SELECT version();")
-    for fila in cursor.fetchall():
+with Conexion("wazuh-server.cm.com.ve","siis","siis","siis") as conn:
+    conn.cursor.execute("SELECT version();")
+    for fila in conn.cursor.fetchall():
         print(fila)
