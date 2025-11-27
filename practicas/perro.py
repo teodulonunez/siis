@@ -20,7 +20,7 @@ def verificar_estado(instancia_perro):
 # --- DECORADOR ---
 def requiere_despierto(func):
     """Decorador que verifica el estado del perro antes de ejecutar el método."""
-    def wrapper(self, *args, **kwargs):
+    def wrapper(self, *args, **kwargs): #kwargs tambien se usa para decir cualquier cantida de argumentos nombrados
         if verificar_estado(self):
             return func(self, *args, **kwargs)
         # Si verificar_estado devuelve False, el método simplemente no se ejecuta
