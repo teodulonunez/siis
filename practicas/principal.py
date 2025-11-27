@@ -21,7 +21,6 @@ class Principal():
                 nombre_clase = nombre_archivo.replace('.py', '').capitalize()
                 print(f"{indice}: {nombre_clase}")
                 lista.append(nombre_clase)
-                #print(f"lista {lista}")
                 indice +=1
         return lista
 
@@ -121,7 +120,6 @@ class Principal():
             try:
                 opcion = int(input("Elige una acción (0 para salir): "))
                 if opcion == 0:
-                    print("Saliendo del menú de acciones...")
                     break
                 elif 1 <= opcion <= len(metodos):
                     metodo = metodos[opcion - 1]
