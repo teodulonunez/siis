@@ -4,7 +4,45 @@ from conexion import Conexion
 
 class Principal():
     def __init__(self):
-        pass
+
+
+        def menu_principal():
+            print("-----MENU PRINCIPAL-----")
+            lista_metodos = []
+
+            for metodos in dir (Principal):
+                #excluir métodos
+                if metodos.startswith('__') and metodos.endswith('__'):
+                    continue
+
+                atributo = getattr(Principal, metodos)
+
+                if callable(atributo):
+                    lista_metodos.append(metodos)
+
+            return tuple(lista_metodos)
+        
+
+        menu_principal = menu_principal()   
+        #while True:
+        for indice, elementos in enumerate(menu_principal):
+            print(f"metodo {indice+1} : {elementos}" )
+        
+        while True:
+            try: #cualquier excepcion dentro de este bloque accionara excep no solo la conversion acceder a un indece inexistente tambien acciona exec
+                self.resp = int(input("Para salir pulse 0 ***** Elige una opcion: "))
+                if self.resp == 0: 
+                    break
+
+                #guardo el nombre del metodo real seccionado antes se le sumo 1 para usar el 0 como salida
+                accion = menu_principal[self.resp-1]
+                # ejecutar_accion = getattr(self, accion)
+                # ejecutar_accion()
+                getattr(self, accion)()#esta linea son las dos lineas anteriores resumidas el () al final ejecuta
+                #
+                break
+            except Exception as e:
+                print(f"Opcion no valida")
         
 
     def mostrar_lista(self):
@@ -136,6 +174,7 @@ class Principal():
 
 
     
-p = Principal()
-perro = p.crear_perro()
-p.mostrar_menu_acciones(perro)
+p = Principal()#
+
+# perro = p.crear_perro()
+# p.mostrar_menu_acciones(perro)

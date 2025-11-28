@@ -2,7 +2,6 @@ import psycopg2
 
 class Conexion:
     def __init__(self, host, database, user, password):
-        print("__INIT__")
         self.host = host
         self.database = database
         self.user = user
@@ -10,6 +9,7 @@ class Conexion:
 
 
     def __enter__(self):
+        #Establecer conexion 
         try:
             self.conexion = psycopg2.connect(
                 host = self.host,
@@ -18,15 +18,15 @@ class Conexion:
                 password = self.password
                 )
             self.cursor = self.conexion.cursor()
-            print("Conexión establecida")
             return self
         except Exception as e:
             print("ERROR al conectar:", e)
 
+
     def __exit__(self, exc_type, exc_value, traceback):
+        #cerrar conexion 
         self.cursor.close()
         self.conexion.close()
-        print("Conexión cerrada")
 
 
     def listar(self):
@@ -64,6 +64,9 @@ class Conexion:
         except Exception as e:
             print("Error al eliminar", e)
             self.conexion.rollback()
+
+    def actualizar(self, id):
+        query = "UPDATE FROM perros "
 
 
 
