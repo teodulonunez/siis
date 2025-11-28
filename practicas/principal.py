@@ -39,7 +39,7 @@ class Principal():
                 # ejecutar_accion = getattr(self, accion)
                 # ejecutar_accion()
                 getattr(self, accion)()#esta linea son las dos lineas anteriores resumidas el () al final ejecuta
-                #
+                #PARA CREAR PERRO SE DEBE INSTANCIAR VERIFICA CON LAS ULTIMAS LINEAS
                 break
             except Exception as e:
                 print(f"Opcion no valida")
@@ -174,7 +174,7 @@ class Principal():
 
 
     
-p = Principal()#
+p = Principal()
 
 # perro = p.crear_perro()
 # p.mostrar_menu_acciones(perro)
