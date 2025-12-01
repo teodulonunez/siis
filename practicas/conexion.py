@@ -65,8 +65,14 @@ class Conexion:
             print("Error al eliminar", e)
             self.conexion.rollback()
 
-    def actualizar(self, id):
-        query = "UPDATE FROM perros "
+    def actualizar(self, id, nombre, raza, dueno):
+        try:
+            query = "UPDATE perros set nombre=%s, raza=%s, dueno=%s WHERE id=%s"
+            self.cursor.execute(query,(nombre, raza, dueno, id))
+            self.conexion.commit()
+        except Exception as e:
+            print("Error al actualizar", e)
+            self.conexion.rollback()
 
 
 

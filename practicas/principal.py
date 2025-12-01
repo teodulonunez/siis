@@ -39,7 +39,7 @@ class Principal():
                 # ejecutar_accion = getattr(self, accion)
                 # ejecutar_accion()
                 getattr(self, accion)()#esta linea son las dos lineas anteriores resumidas el () al final ejecuta
-                #PARA CREAR PERRO SE DEBE INSTANCIAR VERIFICA CON LAS ULTIMAS LINEAS
+                #PARA CREAR PERRO SE DEBE INSTANCIAR VERIFICA CON LAS ULTIMAS
                 break
             except Exception as e:
                 print(f"Opcion no valida")
@@ -91,7 +91,23 @@ class Principal():
 
         print(f"Fuera del ciclo perro1: {lista[perro1 -1]} | perro2: {lista[perro2 -1]}")
         return lista, perro1, perro2
- 															 
+
+    def listar_disponibles(self):														 
+        with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
+            conn.listar()
+        #return perro
+
+    def actualizar(self):
+        print("**************************")
+        self.listar_disponibles()
+        id     = int(input("id a editar: "))
+        nombre = input("nombre del perro: ")
+        raza   = input("raza del perro: ")
+        dueno  = input("dueño del perro: ")
+        with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
+            conn.actualizar(id, nombre, raza, dueno)
+
+
 
     def crear_perro(self):
         lista, perro1, perro2 = self.crear_cruces()
