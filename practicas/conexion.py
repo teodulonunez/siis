@@ -73,6 +73,7 @@ class Conexion:
         else:
             logging.info(f"Eliminado id {id}")
 
+
     def actualizar(self, id, nombre, raza, dueno):
         query = "UPDATE perros set nombre=%s, raza=%s, dueno=%s WHERE id=%s"
         try:

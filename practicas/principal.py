@@ -104,7 +104,7 @@ class Principal():
             lista = conn.listar()
             for fila in lista:
                 print(f"Id: {fila[0]}, nombre: {fila[1]}, raza: {fila[2]}, dueno {fila[3]}")
-        #return perro
+        return lista
 
     def actualizar(self):
         print("**************************")
@@ -116,9 +116,23 @@ class Principal():
         with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
             conn.actualizar(id, nombre, raza, dueno)
 
-    def historial(self):
+
+    def eliminar(self):
         self.listar_disponibles()
-        id = int(input("sELECCIONA EL ID: "))
+        while True:
+            try:
+                id = int(input("SELECCIONA EL ID: "))
+            except Exception as e:
+                print("la opcion introducida no es valida")
+            if id == 0:
+                break
+            if id <= len(self.listar_disponibles()):
+                with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
+                    conn.eliminar(id)
+                    break
+
+            
+
 
 
 ## fin de la sección de funciones principales
