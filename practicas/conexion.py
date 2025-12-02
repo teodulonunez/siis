@@ -1,4 +1,12 @@
 import psycopg2
+import logging
+
+logging.basicConfig(
+    filename='app_errors.log', # Archivo donde se guardarán los logs
+    level=logging.INFO,       # Nivel mínimo a registrar (solo errores o superiores)
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
 
 class Conexion:
     def __init__(self, host, database, user, password):
@@ -18,9 +26,10 @@ class Conexion:
                 password = self.password
                 )
             self.cursor = self.conexion.cursor()
+            logging.info(f"Conexion ok a BD")
             return self
         except Exception as e:
-            print("ERROR al conectar:", e)
+            logging.error(f"Error la conectar a la BD: {e}")
 
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -30,53 +39,54 @@ class Conexion:
 
 
     def listar(self):
+        query = "SELECT * FROM perros"
         try:
-            query = "SELECT * FROM perros"
             self.cursor.execute(query)
-            resp = self.cursor.fetchall()
-            print("***Lista de perros disponibles***")
-            for fila in resp:
-                print(f"Id: {fila[0]}, nombre: {fila[1]}, raza: {fila[2]}, dueno {fila[3]}")
-            
-            return resp #el return es opcional
+            resp = self.cursor.fetchall()         
         except Exception as e:
-            print("ERROR listando")
+            logging.error(f"Error obteniendo {e}")
             return []
-
+        else:
+            return resp #el return es opcional
+            
 
     def insertar(self, nombre, raza, dueno):
+        query ="INSERT INTO perros (nombre, raza, dueno) VALUES (%s, %s, %s)"
         try:
-            query ="INSERT INTO perros (nombre, raza, dueno) VALUES (%s, %s, %s)"
             self.cursor.execute(query,(nombre, raza, dueno))
-            self.conexion.commit()
-            print("Perro insertado")
+            self.conexion.commit()      
         except Exception as e:
-            print("Error al insertar", e)
             self.conexion.rollback()
+            logging.error("Error Insertando {e}")
+        else:
+            logging.info("Insertado")
 
         
     def eliminar(self, id):
+        query ="DELETE FROM perros WHERE id =  %s"
         try:
-            query ="DELETE FROM perros WHERE id =  %s"
             self.cursor.execute(query, (id,))
             self.conexion.commit()
-            print("Perro Eliminado")
         except Exception as e:
-            print("Error al eliminar", e)
             self.conexion.rollback()
+            logging.error(f"Error borrando {e}")
+        else:
+            logging.info(f"Eliminado id {id}")
 
     def actualizar(self, id, nombre, raza, dueno):
+        query = "UPDATE perros set nombre=%s, raza=%s, dueno=%s WHERE id=%s"
         try:
-            query = "UPDATE perros set nombre=%s, raza=%s, dueno=%s WHERE id=%s"
             self.cursor.execute(query,(nombre, raza, dueno, id))
             self.conexion.commit()
         except Exception as e:
-            print("Error al actualizar", e)
             self.conexion.rollback()
+            logging.error("Error modificando {e}")
+        else:
+            logging.info("Modificado id {id}")
 
 
 
-### ESTO CREAS UNA INSTANCIA Se llama de esta forma por que se necesita ajecutar el bloque __enter__ y __exit__
+### ESTO CREA UNA INSTANCIA Se llama de esta forma por que se necesita ajecutar el bloque __enter__ y __exit__
 # with Conexion ("wazuh-server.cm.com.ve", "siis", "siis", "siis")as conn:
 #     conn.listar()
 #     conn.eliminar(5)

@@ -1,6 +1,10 @@
 from pathlib import Path
 import os, sys, importlib, random
 from conexion import Conexion
+import logging
+
+# Obtiene el logger para este módulo
+logger = logging.getLogger(__name__)
 
 class Principal():
     def __init__(self):
@@ -29,20 +33,23 @@ class Principal():
             print(f"metodo {indice+1} : {elementos}" )
         
         while True:
-            try: #cualquier excepcion dentro de este bloque accionara excep no solo la conversion acceder a un indece inexistente tambien acciona exec
+            try: # el bloque try debe ser tan pequeño como sea posible solo las lienas que peuden falla o ocultara errores adicionales
                 self.resp = int(input("Para salir pulse 0 ***** Elige una opcion: "))
-                if self.resp == 0: 
-                    break
-
-                #guardo el nombre del metodo real seccionado antes se le sumo 1 para usar el 0 como salida
-                accion = menu_principal[self.resp-1]
-                # ejecutar_accion = getattr(self, accion)
-                # ejecutar_accion()
-                getattr(self, accion)()#esta linea son las dos lineas anteriores resumidas el () al final ejecuta
-                #PARA CREAR PERRO SE DEBE INSTANCIAR VERIFICA CON LAS ULTIMAS
-                break
             except Exception as e:
+                logging.error(f"opcion: {e}")
                 print(f"Opcion no valida")
+            if self.resp == 0: 
+                break
+            if self.resp > len(menu_principal):
+                continue
+
+            #guardo el nombre del metodo real seccionado antes se le sumo 1 para usar el 0 como salida
+            accion = menu_principal[self.resp-1]
+            # ejecutar_accion = getattr(self, accion)
+            # ejecutar_accion()
+            getattr(self, accion)()#esta linea son las dos lineas anteriores resumidas el () al final ejecuta, esta funcion tiene un return
+            #PARA CREAR PERRO SE DEBE INSTANCIAR VERIFICA CON los ultimos métodos 
+            break
         
 
     def mostrar_lista(self):
@@ -94,7 +101,9 @@ class Principal():
 
     def listar_disponibles(self):														 
         with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
-            conn.listar()
+            lista = conn.listar()
+            for fila in lista:
+                print(f"Id: {fila[0]}, nombre: {fila[1]}, raza: {fila[2]}, dueno {fila[3]}")
         #return perro
 
     def actualizar(self):
@@ -107,8 +116,12 @@ class Principal():
         with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
             conn.actualizar(id, nombre, raza, dueno)
 
+    def historial(self):
+        self.listar_disponibles()
+        id = int(input("sELECCIONA EL ID: "))
 
 
+## fin de la sección de funciones principales
     def crear_perro(self):
         lista, perro1, perro2 = self.crear_cruces()
         # Importar dinámicamente los módulos
