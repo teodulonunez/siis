@@ -25,11 +25,4 @@ class Mascota(Perro):
     @requiere_despierto
     @validar
     def jugar(self):
-        print("fun jugar")
-
-# m = Mascota()
-# m.jugar()
-
-
-
-        
+        print("fun jugar")        

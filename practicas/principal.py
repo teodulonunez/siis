@@ -2,6 +2,7 @@ from pathlib import Path
 import os, sys, importlib, random
 from conexion import Conexion
 import logging
+import string
 
 # Obtiene el logger para este módulo
 logger = logging.getLogger(__name__)
@@ -16,7 +17,7 @@ class Principal():
 
             for metodos in dir (Principal):
                 #excluir métodos
-                if metodos.startswith('__') and metodos.endswith('__'):
+                if metodos.startswith('__') and metodos.endswith('__') or metodos == 'crear_cruces':
                     continue
 
                 atributo = getattr(Principal, metodos)
@@ -118,21 +119,46 @@ class Principal():
 
 
     def eliminar(self):
-        self.listar_disponibles()
         while True:
+            self.listar_disponibles()
             try:
                 id = int(input("SELECCIONA EL ID: "))
             except Exception as e:
                 print("la opcion introducida no es valida")
             if id == 0:
                 break
-            if id <= len(self.listar_disponibles()):
+            with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
+                id_disponible = conn.eliminar(id)
+            break
+
+    def aleatorio(self):
+        def generar_aleatorio(cantidad_default=1, longitud=8):
+            for i in range(cantidad_default):
+                """genera un perro de forma aleatoria y lo inserta en la BD"""
+                longitud = random.randint(1, 8)
+                nombre = ''.join(random.choice(string.ascii_letters) for i in range(longitud))
+                raza = "aleatorio" + ''.join(random.choice(string.ascii_letters + string.digits) for i in range(longitud))
+                dueno = "teo"+''.join(random.choice(string.ascii_letters) for i in range(longitud))
                 with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
-                    conn.eliminar(id)
-                    break
+                    conn.insertar(raza, nombre, dueno)
 
-            
-
+        cantidad = input("Introduce cantidad Por defecto 1: ")
+        if cantidad == "":
+            #genera por defecto
+            print(f"cantidad default 1: ")
+            generar_aleatorio()
+        else:
+            try:
+                repeticiones = int(cantidad)
+            except Exception as e:
+                print(f" {repeticiones} No es un numero se usa valor por defecto")
+                generar_aleatorio()
+                logging.error(f"Se introdujo {e}, usando valores por defecto")
+                logging.info("Insercion por default")
+            else:
+                generar_aleatorio(repeticiones)
+                logging.info(f"Se insertaron {repeticiones} perros")
+   
 
 
 ## fin de la sección de funciones principales
@@ -215,9 +241,5 @@ class Principal():
             except ValueError:
                 print("Debe ser un número válido")
 
-
     
 p = Principal()
-
-# perro = p.crear_perro()
-# p.mostrar_menu_acciones(perro)

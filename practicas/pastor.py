@@ -45,7 +45,3 @@ class Pastor(Perro):
             print("pastoreando")
         else:
             print("error en el archivo")
-
-# pastor = Pastor()
-# pastor.crear_rebano()
-# pastor.pastorear()

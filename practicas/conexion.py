@@ -70,8 +70,10 @@ class Conexion:
         except Exception as e:
             self.conexion.rollback()
             logging.error(f"Error borrando {e}")
+            return False
         else:
             logging.info(f"Eliminado id {id}")
+            return True
 
 
     def actualizar(self, id, nombre, raza, dueno):
@@ -85,10 +87,13 @@ class Conexion:
         else:
             logging.info("Modificado id {id}")
 
-
-
-### ESTO CREA UNA INSTANCIA Se llama de esta forma por que se necesita ajecutar el bloque __enter__ y __exit__
-# with Conexion ("wazuh-server.cm.com.ve", "siis", "siis", "siis")as conn:
-#     conn.listar()
-#     conn.eliminar(5)
-#     conn.listar()
+    def id_disponible(self,id):
+        query = "SELECT id FROM perros where id =%s"
+        try:
+            self.cursor.execute(query,(id))
+            resp = self.cursor.fetchall()
+        except Exception as e:
+            self.conexion.rollback()
+            logging.error("Error obteniendo ID {id} ,{e}")
+        else: 
+            return resp

@@ -69,8 +69,3 @@ class Trabajo(Guardian, Pastor):
             time.sleep(0.1)
         # Agregamos un salto de línea después de que el ciclo termina
         print("\n¡Proceso Completado!")
-
-        
-#trabajo = Trabajo()
-#trabajo.trabajar()
-

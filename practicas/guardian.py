@@ -1,6 +1,5 @@
 from perro import Perro, requiere_despierto
 import random
-#
 class Guardian (Perro):
     def __init__(self):
         super().__init__()
