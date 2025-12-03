@@ -3,7 +3,11 @@ import os, sys, importlib, random
 from conexion import Conexion
 import logging
 import string
-
+#
+import guardian
+import mascota
+import pastor
+import trabajo
 # Obtiene el logger para este módulo
 logger = logging.getLogger(__name__)
 
@@ -166,16 +170,30 @@ class Principal():
 
 ## fin de la sección de funciones principales
     def crear_perro(self):
+        # lista, perro1, perro2 = self.crear_cruces()
+        # # Importar dinámicamente los módulos
+        # modulo1 = importlib.import_module(lista[perro1 - 1].lower())
+        # modulo2 = importlib.import_module(lista[perro2 - 1].lower())
+
+        # # Obtener las clases
+        # clase1 = getattr(modulo1, lista[perro1 - 1])
+        # clase2 = getattr(modulo2, lista[perro2 - 1])
+
+        # # Clase híbrida por composición
+            # lista, perro1, perro2 = self.crear_cruces()
+
+    # Diccionario de módulos y clases
         lista, perro1, perro2 = self.crear_cruces()
-        # Importar dinámicamente los módulos
-        modulo1 = importlib.import_module(lista[perro1 - 1].lower())
-        modulo2 = importlib.import_module(lista[perro2 - 1].lower())
+        clases = {
+            "Guardian": guardian.Guardian,
+            "Mascota": mascota.Mascota,
+            "Pastor": pastor.Pastor,
+            "Trabajo": trabajo.Trabajo,
+        }
 
-        # Obtener las clases
-        clase1 = getattr(modulo1, lista[perro1 - 1])
-        clase2 = getattr(modulo2, lista[perro2 - 1])
+        clase1 = clases[lista[perro1 - 1]]
+        clase2 = clases[lista[perro2 - 1]]
 
-        # Clase híbrida por composición
         class Cruce:
             def __init__(self):
                 #se instancia los objetos de las clases padres
@@ -213,7 +231,8 @@ class Principal():
         return perro
 		 
 
-    def mostrar_menu_acciones(self, perro):
+    def mostrar_menu_acciones(self):
+        perro = self.crear_perro()
         """Muestra un menú con todos los métodos disponibles en el perro híbrido"""
         # Obtener métodos de los dos objetos internos
         metodos_obj1 = [m for m in dir(perro.obj1) if callable(getattr(perro.obj1, m)) and not m.startswith("__")]
