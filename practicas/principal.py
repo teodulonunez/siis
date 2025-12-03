@@ -3,7 +3,7 @@ import os, sys, importlib, random
 from conexion import Conexion
 import logging
 import string
-#
+# importados para crea la lista de métodos
 import guardian
 import mascota
 import pastor
@@ -59,19 +59,6 @@ class Principal():
 
     def mostrar_lista(self):
         """Muestra los tipos de perros disponibles"""
-        #directorio actual
-        # directorio_proyecto = Path('.')
-        # print("*****tipos de perro:")
-        # indice = 1
-        # lista = []
-        # for archivo_path in directorio_proyecto.glob('*.py'):
-        #     nombre_archivo = archivo_path.name
-            
-        #     if nombre_archivo not in ('principal.py', 'perro.py', 'conexion.py') and archivo_path.is_file():
-        #         nombre_clase = nombre_archivo.replace('.py', '').capitalize()
-        #         print(f"{indice}: {nombre_clase}")
-        #         lista.append(nombre_clase)
-        #         indice +=1
         lista = ["Guardian", "Mascota", "Pastor", "Trabajo"]
         for i, nombre in enumerate(lista, start=1):
             print(f"{i}: {nombre}")
@@ -170,17 +157,6 @@ class Principal():
 
 ## fin de la sección de funciones principales
     def crear_perro(self):
-        # lista, perro1, perro2 = self.crear_cruces()
-        # # Importar dinámicamente los módulos
-        # modulo1 = importlib.import_module(lista[perro1 - 1].lower())
-        # modulo2 = importlib.import_module(lista[perro2 - 1].lower())
-
-        # # Obtener las clases
-        # clase1 = getattr(modulo1, lista[perro1 - 1])
-        # clase2 = getattr(modulo2, lista[perro2 - 1])
-
-        # # Clase híbrida por composición
-            # lista, perro1, perro2 = self.crear_cruces()
 
     # Diccionario de módulos y clases
         lista, perro1, perro2 = self.crear_cruces()
