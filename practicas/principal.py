@@ -56,18 +56,21 @@ class Principal():
     def mostrar_lista(self):
         """Muestra los tipos de perros disponibles"""
         #directorio actual
-        directorio_proyecto = Path('.')
-        print("*****tipos de perro:")
-        indice = 1
-        lista = []
-        for archivo_path in directorio_proyecto.glob('*.py'):
-            nombre_archivo = archivo_path.name
+        # directorio_proyecto = Path('.')
+        # print("*****tipos de perro:")
+        # indice = 1
+        # lista = []
+        # for archivo_path in directorio_proyecto.glob('*.py'):
+        #     nombre_archivo = archivo_path.name
             
-            if nombre_archivo not in ('principal.py', 'perro.py', 'conexion.py') and archivo_path.is_file():
-                nombre_clase = nombre_archivo.replace('.py', '').capitalize()
-                print(f"{indice}: {nombre_clase}")
-                lista.append(nombre_clase)
-                indice +=1
+        #     if nombre_archivo not in ('principal.py', 'perro.py', 'conexion.py') and archivo_path.is_file():
+        #         nombre_clase = nombre_archivo.replace('.py', '').capitalize()
+        #         print(f"{indice}: {nombre_clase}")
+        #         lista.append(nombre_clase)
+        #         indice +=1
+        lista = ["Guardian", "Mascota", "Pastor", "Trabajo"]
+        for i, nombre in enumerate(lista, start=1):
+            print(f"{i}: {nombre}")
         return lista
 
 
