@@ -1,3 +1,5 @@
+#cuando se usa import se importa el nombre de modulo (archivo) y para usar sus clases y funciones nombrearchivo.clase.metodo
+#cuando se usa from archivo import X se esta llamando precisamente a esa clase o método solamente y se llama sin usar la notacion punto(.)para acceder
 from pathlib import Path
 import os, sys, importlib, random
 from conexion import Conexion
@@ -8,6 +10,7 @@ import guardian
 import mascota
 import pastor
 import trabajo
+from exportar_yaml import Exportar_yaml
 # Obtiene el logger para este módulo
 logger = logging.getLogger(__name__)
 
@@ -134,7 +137,7 @@ class Principal():
                 raza = "aleatorio" + ''.join(random.choice(string.ascii_letters + string.digits) for i in range(longitud))
                 dueno = "teo"+''.join(random.choice(string.ascii_letters) for i in range(longitud))
                 with Conexion("wazuh-server.cm.com.ve", "siis", "siis", "siis") as conn:
-                    conn.insertar(raza, nombre, dueno)
+                    conn.insertar(nombre, raza, dueno)
 
         cantidad = input("Introduce cantidad Por defecto 1: ")
         if cantidad == "":
@@ -153,9 +156,13 @@ class Principal():
                 generar_aleatorio(repeticiones)
                 logging.info(f"Se insertaron {repeticiones} perros")
    
-
+    def exportar_yaml(self):
+        #from exportar_yaml import ExportadorYAML
+        exportador = Exportar_yaml("perros.yaml")
+        exportador.exportar()
 
 ## fin de la sección de funciones principales
+
     def crear_perro(self):
 
     # Diccionario de módulos y clases
